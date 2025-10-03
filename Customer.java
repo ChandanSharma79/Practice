@@ -1,4 +1,7 @@
 package com.practice;
+
+import com.practice.abstract1.Customer;
+
 interface Bank {
 	void deposit(int amount);
 	void withdraw(int amount);

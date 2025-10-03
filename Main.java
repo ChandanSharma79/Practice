@@ -1,57 +1,39 @@
-package com.practice;
-interface AtmCard {
-	void insertCard();
-	void deposit(int amount);
-	void withdraw(int amount);
+package com.practice.abstract1;
+abstract class Payment {
+	double amount;
+	Payment(double amount){
+		this.amount=amount;
+	}
+	abstract  void pay();
 }
-class HDFC implements AtmCard {
-	private int balance = 5000;
-	public void insertCard() {
-		System.out.println("HDFC Card is Inserted.");
+class CreditCardPayment extends Payment {
+	String cardNumber;
+	CreditCardPayment(double amount,String cardNumber){
+		super(amount);
+		this.cardNumber=cardNumber;
 	}
-	public void deposit(int amount) {
-		balance+=amount;
-		System.out.println("Deposited: "+amount+" | Balance "+balance);
-	}
-	public void withdraw(int amount) {
-		if(balance>=amount) {
-			balance-=amount;
-			System.out.println("Withdraw: "+amount+" | Balance Left "+balance);
-		}
-		else {
-			System.out.println("Insufficient Balance...");
-		}
+	public void pay() {
+		System.out.println(amount+" is paid using Credit Card: "+cardNumber);
 	}
 }
-class SBI implements AtmCard {
-	private int balance = 5000;
-	public void insertCard() {
-		System.out.println("SBI Card is Inserted.");
+class UpiPayment extends Payment {
+	String upiID;
+	UpiPayment(double amount,String upiID){
+		super(amount);
+		this.upiID=upiID;
 	}
-	public void deposit(int amount) {
-		balance+=amount;
-		System.out.println("Deposited: "+amount+" | Balance "+balance);
+	public void pay() {
+		System.out.println(amount+" is paid using UPI ID: "+upiID);
 	}
-	public void withdraw(int amount) {
-		if(balance>=amount) {
-			balance-=amount;
-			System.out.println("Withdraw: "+amount+" | Balance Left "+balance);
-		}
-		else {
-			System.out.println("Insufficient Balance...");
-		}
-	}
+	
 }
+
 public class Main {
 	public static void main(String[] args) {
-		HDFC Card1 = new HDFC();
-		Card1.insertCard();
-		Card1.deposit(10000);
-		Card1.withdraw(5000);
-		SBI Card2 = new SBI();
-		Card2.insertCard();
-		Card2.deposit(15000);
-		Card2.withdraw(10000);
+		Payment p = new CreditCardPayment(5000,"CBAHF990");
+		p.pay();
+		Payment p1 = new UpiPayment(5000,"34xyaachand");
+		p1.pay();
 	}
 
 }
